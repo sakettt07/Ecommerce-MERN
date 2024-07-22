@@ -83,9 +83,9 @@ const Login = () => {
                     </Link>
                   </div>
                   <div className="mt-2 flex items-center justify-between">
-                    <div classNameName="relative w-full">
+                    <div className="relative w-full flex item-center justify-between">
                       <input
-                        classNameName="h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                        className="h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                         type={showPassword ? "text" : "password"}
                         placeholder="Password"
                         name="password"
@@ -93,7 +93,7 @@ const Login = () => {
                       onChange={handleOnChange}
                       />
                       <span
-                        classNameName="absolute inset-y-0 right-3 flex items-center cursor-pointer"
+                        className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
                         onClick={togglePasswordVisibility}
                       >
                         {showPassword ? <FaEye /> : <FaEyeSlash />}
