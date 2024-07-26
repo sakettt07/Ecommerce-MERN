@@ -1,16 +1,19 @@
 import { app } from "./app.js";
 import dotenv from "dotenv"
+import connectDB from "./db/index.js";
 
 
 dotenv.config({
     path:'./env'
 })
+connectDB()
 
 
-app.get("/",(req,res)=>{
-    res.send("Hehe i have setted up the backend for the ecommerce part");
+.then(()=>{
+    app.listen(process.env.PORT || 8000 ,()=>{
+        console.log(`Your server is running on the port ${process.env.PORT}`)
+    })
 })
-
-app.listen(3000,()=>{
-    console.log("ypur server is running on the port 3000");
+.catch((err)=>{
+    console.log("MongoDB connection failed",err);
 })
