@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { FaEyeSlash } from "react-icons/fa";
 import {FaEye} from "react-icons/fa"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import {toast} from "react-toastify"
+import AllApi from "../common";
 
 const Login = () => {
+  const navigate=useNavigate();
     const [showPassword,setShowPassword]=useState(false);
     const [data,setData]=useState({
         email:"",
@@ -22,8 +25,24 @@ const Login = () => {
         })
     }
     // console.log("data",data);
-    const handleSubmit=(e)=>{
+    const handleSubmit=async(e)=>{
         e.preventDefault();
+          const dataResponse = await fetch(AllApi.login.url, {
+            method: AllApi.login.method,
+            credentials:"include",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          });
+          const dataApi=await dataResponse.json();
+          console.log(dataApi)
+          if (dataApi.success) {
+            toast.success(dataApi.message || "LoggedIn successfully!");
+            navigate("/"); // Redirect to login page after successful signup
+          } else {
+            toast.error(dataApi.message || "Login failed. Please try again.");
+          }
     }
 
     const togglePasswordVisibility=()=>{
@@ -104,7 +123,7 @@ const Login = () => {
                 <div>
                   {/* get started button */}
                   <button
-                    type="button"
+                    type="submit"
                     className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                   >
                     Get started{" "}

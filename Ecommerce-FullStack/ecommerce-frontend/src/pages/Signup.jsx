@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaEyeSlash } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 import imageTobase64 from "../utils/imageConvert";
+import AllApi from "../common";
+import {toast} from "react-toastify"
 
 const Signup = () => {
+  const navigate=useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmpass, setShowConfirmpass] = useState(false);
-  const [base64,setBase64]=useState('');
+  // const [base64,setBase64]=useState('');
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -28,8 +31,32 @@ const Signup = () => {
     });
   };
   // console.log("data",data);
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (data.password === data.confirmPass) {
+      try {
+        const dataResponse = await fetch(AllApi.signUp.url, {
+          method: AllApi.signUp.method,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+
+        const dataApi = await dataResponse.json();
+        
+        if (dataApi.success) {
+          toast.success(dataApi.message || "Signup successful!");
+          navigate("/login"); // Redirect to login page after successful signup
+        } else {
+          toast.error(dataApi.message || "Signup failed. Please try again.");
+        }
+      } catch (error) {
+        toast.error("An error occurred during signup. Please try again.");
+      }
+    } else {
+      toast.error("Please check the password and confirm password.");
+    }
   };
   const handleProfilePic = async(e) => {
     const file = e.target.files[0];
@@ -49,7 +76,7 @@ const Signup = () => {
     }
     // console.log("file", file);
   };
-  console.log(data.profilePic);
+  // console.log(data.profilePic);
 
   return (
     <section>
@@ -194,7 +221,7 @@ const Signup = () => {
                 </div>
                 <div>
                   <button
-                    type="button"
+                    type="submit"
                     className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                   >
                     Create Account{" "}
