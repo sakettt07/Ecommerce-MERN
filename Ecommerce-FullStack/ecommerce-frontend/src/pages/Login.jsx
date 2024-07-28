@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FaEyeSlash } from "react-icons/fa";
 import {FaEye} from "react-icons/fa"
 import { Link, useNavigate } from "react-router-dom";
 import {toast} from "react-toastify"
 import AllApi from "../common";
+import Context from "../context/userContext.jsx"
 
 const Login = () => {
+
+  const {fetchUserDetails}=useContext(Context)
   const navigate=useNavigate();
     const [showPassword,setShowPassword]=useState(false);
     const [data,setData]=useState({
@@ -39,6 +42,7 @@ const Login = () => {
           console.log(dataApi)
           if (dataApi.success) {
             toast.success(dataApi.message || "LoggedIn successfully!");
+            fetchUserDetails()
             navigate("/"); // Redirect to login page after successful signup
           } else {
             toast.error(dataApi.message || "Login failed. Please try again.");

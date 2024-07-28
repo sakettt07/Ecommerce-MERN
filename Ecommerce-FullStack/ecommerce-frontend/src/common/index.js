@@ -9,5 +9,9 @@ const AllApi={
         url:`${backendUrl}/api/v1/users/login`,
         method:"post"
     },
+    current_user:{
+        url:`${backendUrl}/api/v1/users/user-details`,
+        method:"get"
+    },
 }
 export default AllApi
