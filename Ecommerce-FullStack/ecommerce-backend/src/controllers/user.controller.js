@@ -92,5 +92,22 @@ const currentUser = asyncHandler(async (req, res) => {
       .status(200)
       .json(new ApiResponse(200, req.user, "current user fetched successfully"));
   });
-const logoutUser=asyncHandler(async(req,res)=>{})
+const logoutUser=asyncHandler(async(req,res)=>{
+  try {
+    res.status(200).clearCookie("token")
+
+    res.json({
+      message:"Logged Out successfully",
+      error:false,
+      success:true,
+      data:[]
+    })
+  } catch (err) {
+    res.json({
+      message:err.message ||err,
+      error:true,
+      success:false
+    })
+  }
+})
 export {registerUser,loginUser,currentUser,logoutUser}

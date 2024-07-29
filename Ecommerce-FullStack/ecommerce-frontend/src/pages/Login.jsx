@@ -42,8 +42,8 @@ const Login = () => {
           console.log(dataApi)
           if (dataApi.success) {
             toast.success(dataApi.message || "LoggedIn successfully!");
-            fetchUserDetails()
-            navigate("/"); // Redirect to login page after successful signup
+            fetchUserDetails
+            navigate("/"); 
           } else {
             toast.error(dataApi.message || "Login failed. Please try again.");
           }

@@ -7,15 +7,20 @@ import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import AllApi from './common';
 import Context from './context/userContext';
+import { useDispatch } from 'react-redux';
+import { setUserDetails } from './store/userSlice';
 
 const App = () => {
+  const dispatch=useDispatch()
   const fetchUserDetails=async()=>{
     const dataResponse=await fetch(AllApi.current_user.url,{
       method:AllApi.current_user.method,
       credentials:"include"
     })
     const dataApi=await dataResponse.json();
-    console.log("data-user",dataApi);
+    if(dataApi.success){
+      dispatch(setUserDetails(dataApi.data))
+    }
   }
   useEffect(()=>{
     fetchUserDetails();
