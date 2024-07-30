@@ -9,6 +9,7 @@ import AllApi from './common';
 import Context from './context/userContext';
 import { useDispatch } from 'react-redux';
 import { setUserDetails } from './store/userSlice';
+import ScrollToTopButton from './components/ScrollToTopButton';
 
 const App = () => {
   const dispatch=useDispatch()
@@ -33,6 +34,7 @@ const App = () => {
       <Outlet />
       <Footer />
       </Context.Provider>
+      <ScrollToTopButton />
     </>
   )
 }

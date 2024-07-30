@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { FaShoppingCart } from "react-icons/fa";
@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { setUserDetails } from "../store/userSlice";
 
 const Header = () => {
+  const [menu,setMenu]=useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state?.user?.user);
@@ -56,29 +57,37 @@ const Header = () => {
       </div>
 
       {/* User and Cart Section */}
-      <div className="flex items-center gap-4 md:mr-6">
-        <div className="hidden md:block">
-          {user?.profilePic ? (
-            <img
-              className="w-10 h-10 object-cover rounded-full"
-              src={user?.profilePic}
-              alt="User Profile"
-            />
-          ) : (
-            <HiOutlineUserCircle className="text-[27px]" />
+      <div className="flex items-center gap-1 md:mr-6">
+        <div className="relative">
+          <div className="hidden md:block" onClick={() => setMenu((prev) => !prev)}>
+            {user?.profilePic ? (
+              <img
+                className="w-10 h-10 object-cover rounded-full cursor-pointer"
+                src={user?.profilePic}
+                alt="User Profile"
+              />
+            ) : (
+              <HiOutlineUserCircle className="text-[27px] cursor-pointer" />
+            )}
+          </div>
+          {menu && (
+            <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-50">
+              <h2>Logoutt</h2>
+              <h2>Profile</h2>
+            </div>
           )}
         </div>
-        <div>
-          {user?._id ? (
-            <button onClick={handleLogout} className="p-2 bg-black text-white">
-              Logout
-            </button>
-          ) : (
-            <Link to="/login">
-              <button className="p-2 px-3 rounded-md">Login</button>
-            </Link>
-          )}
-        </div>
+        <div className="py-2">
+                {user?._id ? (
+                  <button onClick={handleLogout} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    Logout
+                  </button>
+                ) : (
+                  <Link to="/login">
+                    <button className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Login</button>
+                  </Link>
+                )}
+              </div>
         <div className="relative">
           <FaShoppingCart className="text-[27px]" />
           <div className="absolute -top-4 -right-2 bg-yellow-300 p-1 rounded-full">

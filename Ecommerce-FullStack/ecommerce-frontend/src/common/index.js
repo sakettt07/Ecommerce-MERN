@@ -17,5 +17,9 @@ const AllApi={
         url:`${backendUrl}/api/v1/users/logout`,
         method:"get"
     },
+    admin:{
+        url:`${backendUrl}/api/v1/users/logout`,
+        method:"get"
+    },
 }
 export default AllApi
