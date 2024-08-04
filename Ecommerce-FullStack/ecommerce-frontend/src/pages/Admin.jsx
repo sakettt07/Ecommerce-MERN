@@ -4,6 +4,7 @@ import { HiOutlineUserCircle } from "react-icons/hi";
 
 const Admin = () => {
   const user = useSelector((state) => state?.user?.user);
+  console.log("userdetails",user);
 
   return (
     <div className="h-screen w-full flex">
@@ -25,6 +26,13 @@ const Admin = () => {
           <h2 className="text-center text-2xl font-semibold">
             {user?.fullname}
           </h2>
+          <p className="text-center">({user?.role})</p>
+        </div>
+        <div>
+          <nav>
+            <Link to={"all-users"}></Link>
+            <Link to={"products"}></Link>
+          </nav>
         </div>
       </aside>
       <main>main</main>
