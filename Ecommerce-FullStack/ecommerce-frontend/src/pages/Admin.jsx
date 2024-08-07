@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { HiOutlineUserCircle } from "react-icons/hi";
+import {Link, Outlet} from "react-router-dom"
 
 const Admin = () => {
   const user = useSelector((state) => state?.user?.user);
@@ -29,13 +30,16 @@ const Admin = () => {
           <p className="text-center">({user?.role})</p>
         </div>
         <div>
-          <nav>
-            <Link to={"all-users"}></Link>
-            <Link to={"products"}></Link>
+          <nav className="grid p-4">
+            <Link className="px-16 hover:bg-slate-300 py-2" to="all-users">All Users</Link>
+            <Link className="px-16 hover:bg-slate-300 py-2" to="products">Products</Link>
           </nav>
         </div>
       </aside>
-      <main>main</main>
+      <main>
+        <Outlet />
+        {/* main */}
+      </main>
     </div>
   );
 };
