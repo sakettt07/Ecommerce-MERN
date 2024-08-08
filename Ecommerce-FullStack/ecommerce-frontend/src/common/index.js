@@ -21,5 +21,9 @@ const AllApi={
         url:`${backendUrl}/api/v1/users/logout`,
         method:"get"
     },
+    allusers:{
+        url:`${backendUrl}/api/v1/users/getAllusers`,
+        method:"get"
+    },
 }
 export default AllApi

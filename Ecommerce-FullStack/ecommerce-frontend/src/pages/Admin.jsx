@@ -5,7 +5,7 @@ import {Link, Outlet} from "react-router-dom"
 
 const Admin = () => {
   const user = useSelector((state) => state?.user?.user);
-  console.log("userdetails",user);
+  // console.log("userdetails",user);
 
   return (
     <div className="h-screen w-full flex">
@@ -36,9 +36,8 @@ const Admin = () => {
           </nav>
         </div>
       </aside>
-      <main>
+      <main className="w-full">
         <Outlet />
-        {/* main */}
       </main>
     </div>
   );

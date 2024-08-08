@@ -110,4 +110,19 @@ const logoutUser=asyncHandler(async(req,res)=>{
     })
   }
 })
-export {registerUser,loginUser,currentUser,logoutUser}
+const getAllusers=asyncHandler(async(req,res)=>{
+  // TODO: to get all the user we only have to find the 
+
+  const users=await User.find().select("-password ");
+  // if(!users){
+    
+  // }
+  try {
+    // console.log("userid",req.user?._id)
+    res.status(200).json(new ApiResponse(200,users,"all users fetched"))
+  } catch (error) {
+    throw new ApiError(400,"unable to fetch the details")
+  }
+
+})
+export {registerUser,loginUser,currentUser,logoutUser,getAllusers}
