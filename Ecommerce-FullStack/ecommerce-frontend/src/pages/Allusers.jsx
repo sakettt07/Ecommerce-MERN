@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AllApi from "../common";
-
+import { MdOutlineEdit } from "react-icons/md";
+import ChangeRole from "../components/ChangeRole";
 const Allusers = () => {
   const [allUsers, setAllUsers] = useState([]);
   const fetchAllUsers = async () => {
@@ -36,11 +37,12 @@ const Allusers = () => {
                   <th class="px-5 py-3">Full Name</th>
                   <th class="px-5 py-3">User Role</th>
                   <th class="px-5 py-3">Created at</th>
+                  <th class="px-5 py-3">Action</th>
                 </tr>
               </thead>
               <tbody class="text-gray-500 w-full">
                 {allUsers.map((item,index)=>(
-                  <tr>
+                  <tr key={index}>
                   <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
                     <p class="whitespace-no-wrap">{item._id}</p>
                   </td>
@@ -57,11 +59,16 @@ const Allusers = () => {
                   <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
                     <p class="whitespace-no-wrap">{item.createdAt}</p>
                   </td>
+                  <td class="border-b border-gray-200 flex items-center bg-white px-5 py-5 text-sm">
+                    <button class="whitespace-no-wrap bg-gray-500 p-1 text-white px-3">Edit</button>
+                    <MdOutlineEdit /> 
+                  </td>
                 </tr>
                 ))}
                 
               </tbody>
             </table>
+            <ChangeRole />
           </div>
           <div class="flex flex-col items-center border-t bg-white px-5 py-5 sm:flex-row sm:justify-between">
             <span class="text-xs text-gray-600 sm:text-sm">

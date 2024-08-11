@@ -125,4 +125,18 @@ const getAllusers=asyncHandler(async(req,res)=>{
   }
 
 })
-export {registerUser,loginUser,currentUser,logoutUser,getAllusers}
+const updateUser=asyncHandler(async(req,res)=>{
+  const {userId,email,name,role}=req.body;
+  const payload={
+    ...(email&&{email:email}),
+    ...(name&&{name:name}),
+    ...(role&&{role:role}),
+  }
+  const updatedUser=await User.findByIdAndUpdate(userId,payload);
+
+  if(!updatedUser){
+    throw new ApiError(400,"error while updating the user");
+  }
+  res.status(200).json(new ApiResponse(200,updatedUser,"user updated successfully"));
+})
+export {registerUser,loginUser,currentUser,logoutUser,getAllusers,updateUser}
